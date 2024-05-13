@@ -17,8 +17,30 @@ public class CrudDemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
-			createStudent(studentDAO);
+		 // createStudent(studentDAO);
+         // createMultipleStudents(studentDAO);
+			readStudent(studentDAO);
+
 		};
+	}
+
+	private void createMultipleStudents(StudentDAO studentDAO) {
+		//create the student object
+		System.out.println("Creating new 5 student objects ...");
+		Student tempStudent1 = new Student("John", "Doe", "johndoe@mail.com");
+		Student tempStudent2 = new Student("Alice", "Smith", "alicesmith@mail.com");
+		Student tempStudent3 = new Student("John", "Johnson", "johnjohnson@mail.com");
+		Student tempStudent4 = new Student("Emma", "Brown", "emmabrown@mail.com");
+		Student tempStudent5 = new Student("Michael", "Davis", "michaeldavis@mail.com");
+
+
+		//save the student object
+		System.out.println("Saving the students....");
+		studentDAO.save(tempStudent1);
+		studentDAO.save(tempStudent2);
+		studentDAO.save(tempStudent3);
+		studentDAO.save(tempStudent4);
+		studentDAO.save(tempStudent5);
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
@@ -33,5 +55,30 @@ public class CrudDemoApplication {
 		//display id of the saved student
 		System.out.println(STR."Generated ID of the saved Student:\{tempStudent.getId()}");
 	}
+
+
+	private void readStudent(StudentDAO studentDAO){
+		// create a student object
+		System.out.println("Creating a new student...");
+		Student tempStudent = new Student("Jack", "Harrington","jackharrington@mail.com");
+
+		// save the student
+		System.out.println("Saving student ....");
+		studentDAO.save(tempStudent);
+
+		// display id of the saved student
+		int studentId = tempStudent.getId();
+		System.out.println(STR."Saved student.Generated id :\{studentId}");
+
+		// retrieve student based on the id:primary key
+		System.out.println(STR."Retrieving student with id:\{studentId}");
+		Student myStudent = studentDAO.findById(studentId);
+
+		// display student
+		System.out.println(STR."Found the student: \{myStudent}");
+
+	}
+
+
 
 }
