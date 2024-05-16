@@ -23,11 +23,11 @@ public class CrudDemoApplication {
             // createMultipleStudents(studentDAO);
             // readStudent(studentDAO);
             //  readStudents(studentDAO);
-            queryByLastName(studentDAO);
+            // queryByLastName(studentDAO);
+            updateStudent(studentDAO);
 
         };
     }
-
 
 
     private void createMultipleStudents(StudentDAO studentDAO) {
@@ -88,25 +88,39 @@ public class CrudDemoApplication {
     private void readStudents(StudentDAO studentDAO) {
         // retrieve students
         System.out.println("Retrieving students ....");
-        List <Student> students = studentDAO.findAll();
+        List<Student> students = studentDAO.findAll();
 
         // display students
         // System.out.println(STR."Students List: \{students}");
 
         //for loop
-        for(Student student: students){
+        for (Student student : students) {
             System.out.println(student);
         }
 
     }
 
-    private  void queryByLastName(StudentDAO studentDAO){
-        List <Student> students = studentDAO.findByLastName("Doe");
+    private void queryByLastName(StudentDAO studentDAO) {
+        List<Student> students = studentDAO.findByLastName("Doe");
 
-        for (Student student: students){
+        for (Student student : students) {
             System.out.println(student);
         }
 
+    }
+
+    private  void updateStudent(StudentDAO studentDAO){
+        int studentId = 2;
+        System.out.println("Finding student by id ....");
+        Student student = studentDAO.findById(studentId);
+
+        System.out.println("Updating student ....");
+        student.setFirstName("John");
+        student.setEmail("johndoe@mail.com");
+
+        studentDAO.update(student);
+
+        System.out.println(STR."Displaying updated student \{student}");
     }
 
 
